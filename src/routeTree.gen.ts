@@ -13,6 +13,7 @@ import { Route as TabsRouteImport } from './routes/_tabs'
 import { Route as TabsIndexRouteImport } from './routes/_tabs.index'
 import { Route as TabsBaholashRouteImport } from './routes/_tabs.baholash'
 import { Route as TabsDavomatRouteImport } from './routes/_tabs.davomat'
+import { Route as TabsProfilRouteImport } from './routes/_tabs.profil'
 import { Route as TabsStatistikaRouteImport } from './routes/_tabs.statistika'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
@@ -35,6 +36,11 @@ const TabsDavomatRoute = TabsDavomatRouteImport.update({
   path: '/davomat',
   getParentRoute: () => TabsRoute,
 } as any)
+const TabsProfilRoute = TabsProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => TabsRoute,
+} as any)
 const TabsStatistikaRoute = TabsStatistikaRouteImport.update({
   id: '/statistika',
   path: '/statistika',
@@ -51,12 +57,14 @@ export interface FileRoutesByFullPath {
   '/': typeof TabsIndexRoute
   '/baholash': typeof TabsBaholashRoute
   '/davomat': typeof TabsDavomatRoute
+  '/profil': typeof TabsProfilRoute
   '/statistika': typeof TabsStatistikaRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
   '/baholash': typeof TabsBaholashRoute
   '/davomat': typeof TabsDavomatRoute
+  '/profil': typeof TabsProfilRoute
   '/statistika': typeof TabsStatistikaRoute
   '/': typeof TabsIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -66,6 +74,7 @@ export interface FileRoutesById {
   '/_tabs': typeof TabsRouteWithChildren
   '/_tabs/baholash': typeof TabsBaholashRoute
   '/_tabs/davomat': typeof TabsDavomatRoute
+  '/_tabs/profil': typeof TabsProfilRoute
   '/_tabs/statistika': typeof TabsStatistikaRoute
   '/_tabs/': typeof TabsIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
@@ -76,12 +85,14 @@ export interface FileRouteTypes {
     | '/'
     | '/baholash'
     | '/davomat'
+    | '/profil'
     | '/statistika'
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/baholash'
     | '/davomat'
+    | '/profil'
     | '/statistika'
     | '/'
     | '/api/public/telegram/webhook'
@@ -90,6 +101,7 @@ export interface FileRouteTypes {
     | '/_tabs'
     | '/_tabs/baholash'
     | '/_tabs/davomat'
+    | '/_tabs/profil'
     | '/_tabs/statistika'
     | '/_tabs/'
     | '/api/public/telegram/webhook'
@@ -130,6 +142,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TabsDavomatRouteImport
       parentRoute: typeof TabsRoute
     }
+    '/_tabs/profil': {
+      id: '/_tabs/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof TabsProfilRouteImport
+      parentRoute: typeof TabsRoute
+    }
     '/_tabs/statistika': {
       id: '/_tabs/statistika'
       path: '/statistika'
@@ -150,6 +169,7 @@ declare module '@tanstack/react-router' {
 interface TabsRouteChildren {
   TabsBaholashRoute: typeof TabsBaholashRoute
   TabsDavomatRoute: typeof TabsDavomatRoute
+  TabsProfilRoute: typeof TabsProfilRoute
   TabsStatistikaRoute: typeof TabsStatistikaRoute
   TabsIndexRoute: typeof TabsIndexRoute
 }
@@ -157,6 +177,7 @@ interface TabsRouteChildren {
 const TabsRouteChildren: TabsRouteChildren = {
   TabsBaholashRoute: TabsBaholashRoute,
   TabsDavomatRoute: TabsDavomatRoute,
+  TabsProfilRoute: TabsProfilRoute,
   TabsStatistikaRoute: TabsStatistikaRoute,
   TabsIndexRoute: TabsIndexRoute,
 }
