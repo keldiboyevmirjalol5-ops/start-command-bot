@@ -42,7 +42,7 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
         const appUrl = `${new URL(request.url).origin}/`;
 
         if (typeof msg.text !== "string") {
-          await sendReply(chatId, { text: "Iltimos, matn yuboring yoki tugmalardan foydalaning." }, appUrl);
+          await sendReply(chatId, { text: "Iltimos, matn yuboring yoki tugmalardan foydalaning." }, appUrl).catch(() => {});
           return Response.json({ ok: true });
         }
 
@@ -84,7 +84,12 @@ export const Route = createFileRoute("/api/public/telegram/webhook")({
           return Response.json({ error: upErr.message }, { status: 500 });
         }
 
-        for (const r of replies) await sendReply(chatId, r, appUrl);
+        try {
+          for (const r of replies) await sendReply(chatId, r, appUrl);
+        } catch (e) {
+          // Already logged; acknowledge so Telegram does not retry an update we already processed.
+          return Response.json({ ok: false, error: String(e) });
+        }
         return Response.json({ ok: true });
       },
     },
