@@ -90,7 +90,7 @@ export function promptFor(step: Step): Reply {
 
 function prev(step: Step): Step {
   const i = ORDER.indexOf(step);
-  return i > 0 ? ORDER[i - 1] : "full_name";
+  return i > 0 ? (ORDER[i - 1] ?? "full_name") : "full_name";
 }
 
 export function summary(u: BotUser): string {
@@ -116,7 +116,7 @@ const WELCOME =
 
 export function handleText(user: BotUser | null, rawText: string): FlowResult {
   const text = rawText.trim();
-  const cmd = text.split(/[\s@]/)[0].toLowerCase();
+  const cmd = (text.split(/[\s@]/)[0] ?? "").toLowerCase();
 
   if (cmd === "/start") {
     if (user && user.step === "done") {

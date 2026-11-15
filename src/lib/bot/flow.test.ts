@@ -13,7 +13,7 @@ describe("bot registration flow", () => {
   it("name moves to region step with region buttons", () => {
     const r = handleText(base, "Ali Valiyev");
     expect(r.patch).toMatchObject({ full_name: "Ali Valiyev", step: "region" });
-    expect(r.replies[0].keyboard?.flat()).toContain("Farg'ona");
+    expect(r.replies[0]?.keyboard?.flat()).toContain("Farg'ona");
   });
 
   it("region must be picked from the list", () => {
