@@ -28,3 +28,8 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+- Telegram bot logic lives in `src/lib/bot/flow.ts` as a pure function (no I/O) so it stays unit-tested; the webhook route only loads/saves state and sends replies.
+- Telegram receives updates via webhook at `/api/public/telegram/webhook`, authenticated by a secret token derived from `TELEGRAM_API_KEY`; Bot API calls go through the connector gateway.
+- Bot tables (`tg_users`, `tg_processed_updates`) are service-role only; the Mini App must read them through server functions that verify Telegram init data.

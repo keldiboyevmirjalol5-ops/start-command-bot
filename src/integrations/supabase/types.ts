@@ -14,7 +14,69 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      tg_processed_updates: {
+        Row: {
+          created_at: string
+          update_id: number
+        }
+        Insert: {
+          created_at?: string
+          update_id: number
+        }
+        Update: {
+          created_at?: string
+          update_id?: number
+        }
+        Relationships: []
+      }
+      tg_users: {
+        Row: {
+          chat_id: number
+          created_at: string
+          district: string | null
+          full_name: string | null
+          goal: string | null
+          region: string | null
+          registered_at: string | null
+          role: string | null
+          step: string
+          telegram_id: number
+          tg_first_name: string | null
+          updated_at: string
+          username: string | null
+        }
+        Insert: {
+          chat_id: number
+          created_at?: string
+          district?: string | null
+          full_name?: string | null
+          goal?: string | null
+          region?: string | null
+          registered_at?: string | null
+          role?: string | null
+          step?: string
+          telegram_id: number
+          tg_first_name?: string | null
+          updated_at?: string
+          username?: string | null
+        }
+        Update: {
+          chat_id?: number
+          created_at?: string
+          district?: string | null
+          full_name?: string | null
+          goal?: string | null
+          region?: string | null
+          registered_at?: string | null
+          role?: string | null
+          step?: string
+          telegram_id?: number
+          tg_first_name?: string | null
+          updated_at?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
