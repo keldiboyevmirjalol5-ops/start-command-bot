@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useServerFn } from "@tanstack/react-start";
 import { toast } from "sonner";
-import { Award, Camera, ChevronRight, LogOut, Megaphone, Pencil, Shield, Users, GraduationCap, Loader2 } from "lucide-react";
+import { Award, Camera, ChevronRight, LogOut, Megaphone, Pencil, Users, GraduationCap, Loader2 } from "lucide-react";
 import { useDash } from "@/hooks/use-dashboard";
 import { haptic, openExternal, useTelegram } from "@/hooks/use-telegram";
 import { joinGroup, leaveGroup, updateProfile, uploadAvatar } from "@/lib/api/student.functions";
@@ -110,13 +110,6 @@ function ProfilPage() {
         </Button>
       </Card>
 
-      {d.isAdmin && (
-        <Link to="/admin" className="flex items-center gap-3 rounded-3xl bg-foreground p-4 text-background shadow-card">
-          <Shield className="size-5" />
-          <span className="flex-1 font-semibold">Admin panel</span>
-          <ChevronRight className="size-5" />
-        </Link>
-      )}
 
       <Card>
         <SectionTitle>
