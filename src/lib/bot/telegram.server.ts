@@ -45,7 +45,9 @@ export function safeEqual(a: string, b: string): boolean {
 export async function sendReply(chatId: number, reply: Reply, appUrl: string) {
   let reply_markup: unknown = undefined;
   if (reply.openApp) {
-    reply_markup = { inline_keyboard: [[{ text: OPEN_APP, web_app: { url: appUrl } }]] };
+    reply_markup = {
+      inline_keyboard: [[{ text: reply.buttonText ?? OPEN_APP, web_app: { url: appUrl + (reply.appPath ?? "") } }]],
+    };
   } else if (reply.keyboard) {
     reply_markup = {
       keyboard: reply.keyboard.map((row) => row.map((text) => ({ text }))),

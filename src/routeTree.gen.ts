@@ -9,13 +9,42 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
+import { Route as TabsRouteImport } from './routes/_tabs'
+import { Route as TabsIndexRouteImport } from './routes/_tabs.index'
+import { Route as TabsBaholashRouteImport } from './routes/_tabs.baholash'
+import { Route as TabsDavomatRouteImport } from './routes/_tabs.davomat'
+import { Route as TabsProfilRouteImport } from './routes/_tabs.profil'
+import { Route as TabsStatistikaRouteImport } from './routes/_tabs.statistika'
 import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/public/telegram/webhook'
 
-const IndexRoute = IndexRouteImport.update({
+const TabsRoute = TabsRouteImport.update({
+  id: '/_tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TabsIndexRoute = TabsIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => TabsRoute,
+} as any)
+const TabsBaholashRoute = TabsBaholashRouteImport.update({
+  id: '/baholash',
+  path: '/baholash',
+  getParentRoute: () => TabsRoute,
+} as any)
+const TabsDavomatRoute = TabsDavomatRouteImport.update({
+  id: '/davomat',
+  path: '/davomat',
+  getParentRoute: () => TabsRoute,
+} as any)
+const TabsProfilRoute = TabsProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => TabsRoute,
+} as any)
+const TabsStatistikaRoute = TabsStatistikaRouteImport.update({
+  id: '/statistika',
+  path: '/statistika',
+  getParentRoute: () => TabsRoute,
 } as any)
 const ApiPublicTelegramWebhookRoute =
   ApiPublicTelegramWebhookRouteImport.update({
@@ -25,39 +54,107 @@ const ApiPublicTelegramWebhookRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
+  '/': typeof TabsIndexRoute
+  '/baholash': typeof TabsBaholashRoute
+  '/davomat': typeof TabsDavomatRoute
+  '/profil': typeof TabsProfilRoute
+  '/statistika': typeof TabsStatistikaRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
+  '/baholash': typeof TabsBaholashRoute
+  '/davomat': typeof TabsDavomatRoute
+  '/profil': typeof TabsProfilRoute
+  '/statistika': typeof TabsStatistikaRoute
+  '/': typeof TabsIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
+  '/_tabs': typeof TabsRouteWithChildren
+  '/_tabs/baholash': typeof TabsBaholashRoute
+  '/_tabs/davomat': typeof TabsDavomatRoute
+  '/_tabs/profil': typeof TabsProfilRoute
+  '/_tabs/statistika': typeof TabsStatistikaRoute
+  '/_tabs/': typeof TabsIndexRoute
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/public/telegram/webhook'
+  fullPaths:
+    | '/'
+    | '/baholash'
+    | '/davomat'
+    | '/profil'
+    | '/statistika'
+    | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/public/telegram/webhook'
-  id: '__root__' | '/' | '/api/public/telegram/webhook'
+  to:
+    | '/baholash'
+    | '/davomat'
+    | '/profil'
+    | '/statistika'
+    | '/'
+    | '/api/public/telegram/webhook'
+  id:
+    | '__root__'
+    | '/_tabs'
+    | '/_tabs/baholash'
+    | '/_tabs/davomat'
+    | '/_tabs/profil'
+    | '/_tabs/statistika'
+    | '/_tabs/'
+    | '/api/public/telegram/webhook'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
+  TabsRoute: typeof TabsRouteWithChildren
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_tabs': {
+      id: '/_tabs'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof TabsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_tabs/': {
+      id: '/_tabs/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof TabsIndexRouteImport
+      parentRoute: typeof TabsRoute
+    }
+    '/_tabs/baholash': {
+      id: '/_tabs/baholash'
+      path: '/baholash'
+      fullPath: '/baholash'
+      preLoaderRoute: typeof TabsBaholashRouteImport
+      parentRoute: typeof TabsRoute
+    }
+    '/_tabs/davomat': {
+      id: '/_tabs/davomat'
+      path: '/davomat'
+      fullPath: '/davomat'
+      preLoaderRoute: typeof TabsDavomatRouteImport
+      parentRoute: typeof TabsRoute
+    }
+    '/_tabs/profil': {
+      id: '/_tabs/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof TabsProfilRouteImport
+      parentRoute: typeof TabsRoute
+    }
+    '/_tabs/statistika': {
+      id: '/_tabs/statistika'
+      path: '/statistika'
+      fullPath: '/statistika'
+      preLoaderRoute: typeof TabsStatistikaRouteImport
+      parentRoute: typeof TabsRoute
     }
     '/api/public/telegram/webhook': {
       id: '/api/public/telegram/webhook'
@@ -69,8 +166,26 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface TabsRouteChildren {
+  TabsBaholashRoute: typeof TabsBaholashRoute
+  TabsDavomatRoute: typeof TabsDavomatRoute
+  TabsProfilRoute: typeof TabsProfilRoute
+  TabsStatistikaRoute: typeof TabsStatistikaRoute
+  TabsIndexRoute: typeof TabsIndexRoute
+}
+
+const TabsRouteChildren: TabsRouteChildren = {
+  TabsBaholashRoute: TabsBaholashRoute,
+  TabsDavomatRoute: TabsDavomatRoute,
+  TabsProfilRoute: TabsProfilRoute,
+  TabsStatistikaRoute: TabsStatistikaRoute,
+  TabsIndexRoute: TabsIndexRoute,
+}
+
+const TabsRouteWithChildren = TabsRoute._addFileChildren(TabsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
+  TabsRoute: TabsRouteWithChildren,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }
 export const routeTree = rootRouteImport

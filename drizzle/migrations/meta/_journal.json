@@ -8,6 +8,13 @@
       "when": 1794759054210,
       "tag": "0000_telegram_bot_users",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794759329626,
+      "tag": "0001_education_core",
+      "breakpoints": true
     }
   ]
 }

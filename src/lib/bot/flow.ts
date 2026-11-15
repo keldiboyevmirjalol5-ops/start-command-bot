@@ -44,6 +44,8 @@ export type Reply = {
   keyboard?: string[][]; // reply keyboard rows
   removeKeyboard?: boolean;
   openApp?: boolean; // attach inline "open mini app" button
+  appPath?: string; // path inside the mini app, e.g. "admin"
+  buttonText?: string;
 };
 
 export type FlowResult = { patch: Partial<BotUser> & { registered?: boolean }; replies: Reply[] };

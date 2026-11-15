@@ -14,6 +14,331 @@ export type Database = {
   }
   public: {
     Tables: {
+      attendance: {
+        Row: {
+          att_date: string
+          created_at: string
+          id: string
+          status: string
+          telegram_id: number
+        }
+        Insert: {
+          att_date: string
+          created_at?: string
+          id?: string
+          status: string
+          telegram_id: number
+        }
+        Update: {
+          att_date?: string
+          created_at?: string
+          id?: string
+          status?: string
+          telegram_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "attendance_telegram_id_fkey"
+            columns: ["telegram_id"]
+            isOneToOne: false
+            referencedRelation: "tg_users"
+            referencedColumns: ["telegram_id"]
+          },
+        ]
+      }
+      certificates: {
+        Row: {
+          created_at: string
+          id: string
+          issued_on: string
+          score: string | null
+          telegram_id: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          issued_on?: string
+          score?: string | null
+          telegram_id: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          issued_on?: string
+          score?: string | null
+          telegram_id?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "certificates_telegram_id_fkey"
+            columns: ["telegram_id"]
+            isOneToOne: false
+            referencedRelation: "tg_users"
+            referencedColumns: ["telegram_id"]
+          },
+        ]
+      }
+      channels: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          title: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          title: string
+          url: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          title?: string
+          url?: string
+        }
+        Relationships: []
+      }
+      groups: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          join_code: string
+          name: string
+          teacher_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          join_code: string
+          name: string
+          teacher_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          join_code?: string
+          name?: string
+          teacher_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "groups_teacher_id_fkey"
+            columns: ["teacher_id"]
+            isOneToOne: false
+            referencedRelation: "teachers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      lessons: {
+        Row: {
+          created_at: string
+          description: string | null
+          group_id: string
+          id: string
+          lesson_date: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          group_id: string
+          id?: string
+          lesson_date?: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          group_id?: string
+          id?: string
+          lesson_date?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lessons_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          created_at: string
+          group_id: string | null
+          id: string
+          sent_count: number
+          text: string
+        }
+        Insert: {
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          sent_count?: number
+          text: string
+        }
+        Update: {
+          created_at?: string
+          group_id?: string | null
+          id?: string
+          sent_count?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "notifications_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ratings: {
+        Row: {
+          comment: string | null
+          created_at: string
+          id: string
+          lesson_id: string
+          rating: number
+          telegram_id: number
+        }
+        Insert: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          lesson_id: string
+          rating: number
+          telegram_id: number
+        }
+        Update: {
+          comment?: string | null
+          created_at?: string
+          id?: string
+          lesson_id?: string
+          rating?: number
+          telegram_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ratings_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "ratings_telegram_id_fkey"
+            columns: ["telegram_id"]
+            isOneToOne: false
+            referencedRelation: "tg_users"
+            referencedColumns: ["telegram_id"]
+          },
+        ]
+      }
+      scores: {
+        Row: {
+          answers_correct: number
+          answers_total: number
+          created_at: string
+          id: string
+          lesson_id: string | null
+          note: string | null
+          points: number
+          scored_on: string
+          telegram_id: number
+        }
+        Insert: {
+          answers_correct?: number
+          answers_total?: number
+          created_at?: string
+          id?: string
+          lesson_id?: string | null
+          note?: string | null
+          points?: number
+          scored_on?: string
+          telegram_id: number
+        }
+        Update: {
+          answers_correct?: number
+          answers_total?: number
+          created_at?: string
+          id?: string
+          lesson_id?: string | null
+          note?: string | null
+          points?: number
+          scored_on?: string
+          telegram_id?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "scores_lesson_id_fkey"
+            columns: ["lesson_id"]
+            isOneToOne: false
+            referencedRelation: "lessons"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "scores_telegram_id_fkey"
+            columns: ["telegram_id"]
+            isOneToOne: false
+            referencedRelation: "tg_users"
+            referencedColumns: ["telegram_id"]
+          },
+        ]
+      }
+      teachers: {
+        Row: {
+          created_at: string
+          full_name: string
+          id: string
+          subject: string | null
+          telegram_username: string | null
+        }
+        Insert: {
+          created_at?: string
+          full_name: string
+          id?: string
+          subject?: string | null
+          telegram_username?: string | null
+        }
+        Update: {
+          created_at?: string
+          full_name?: string
+          id?: string
+          subject?: string | null
+          telegram_username?: string | null
+        }
+        Relationships: []
+      }
+      tg_admins: {
+        Row: {
+          created_at: string
+          telegram_id: number
+        }
+        Insert: {
+          created_at?: string
+          telegram_id: number
+        }
+        Update: {
+          created_at?: string
+          telegram_id?: number
+        }
+        Relationships: []
+      }
       tg_processed_updates: {
         Row: {
           created_at: string
@@ -31,11 +356,13 @@ export type Database = {
       }
       tg_users: {
         Row: {
+          avatar_url: string | null
           chat_id: number
           created_at: string
           district: string | null
           full_name: string | null
           goal: string | null
+          group_id: string | null
           region: string | null
           registered_at: string | null
           role: string | null
@@ -44,13 +371,16 @@ export type Database = {
           tg_first_name: string | null
           updated_at: string
           username: string | null
+          weekly_goal: number
         }
         Insert: {
+          avatar_url?: string | null
           chat_id: number
           created_at?: string
           district?: string | null
           full_name?: string | null
           goal?: string | null
+          group_id?: string | null
           region?: string | null
           registered_at?: string | null
           role?: string | null
@@ -59,13 +389,16 @@ export type Database = {
           tg_first_name?: string | null
           updated_at?: string
           username?: string | null
+          weekly_goal?: number
         }
         Update: {
+          avatar_url?: string | null
           chat_id?: number
           created_at?: string
           district?: string | null
           full_name?: string | null
           goal?: string | null
+          group_id?: string | null
           region?: string | null
           registered_at?: string | null
           role?: string | null
@@ -74,8 +407,17 @@ export type Database = {
           tg_first_name?: string | null
           updated_at?: string
           username?: string | null
+          weekly_goal?: number
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "tg_users_group_id_fkey"
+            columns: ["group_id"]
+            isOneToOne: false
+            referencedRelation: "groups"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
