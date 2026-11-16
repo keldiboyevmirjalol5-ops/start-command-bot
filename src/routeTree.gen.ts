@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TabsRouteImport } from './routes/_tabs'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as TabsIndexRouteImport } from './routes/_tabs.index'
 import { Route as TabsBaholashRouteImport } from './routes/_tabs.baholash'
 import { Route as TabsDavomatRouteImport } from './routes/_tabs.davomat'
@@ -19,6 +20,11 @@ import { Route as ApiPublicTelegramWebhookRouteImport } from './routes/api/publi
 
 const TabsRoute = TabsRouteImport.update({
   id: '/_tabs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TabsIndexRoute = TabsIndexRouteImport.update({
@@ -55,6 +61,7 @@ const ApiPublicTelegramWebhookRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof TabsIndexRoute
+  '/admin': typeof AdminRoute
   '/baholash': typeof TabsBaholashRoute
   '/davomat': typeof TabsDavomatRoute
   '/profil': typeof TabsProfilRoute
@@ -62,6 +69,7 @@ export interface FileRoutesByFullPath {
   '/api/public/telegram/webhook': typeof ApiPublicTelegramWebhookRoute
 }
 export interface FileRoutesByTo {
+  '/admin': typeof AdminRoute
   '/baholash': typeof TabsBaholashRoute
   '/davomat': typeof TabsDavomatRoute
   '/profil': typeof TabsProfilRoute
@@ -72,6 +80,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_tabs': typeof TabsRouteWithChildren
+  '/admin': typeof AdminRoute
   '/_tabs/baholash': typeof TabsBaholashRoute
   '/_tabs/davomat': typeof TabsDavomatRoute
   '/_tabs/profil': typeof TabsProfilRoute
@@ -83,6 +92,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/admin'
     | '/baholash'
     | '/davomat'
     | '/profil'
@@ -90,6 +100,7 @@ export interface FileRouteTypes {
     | '/api/public/telegram/webhook'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/admin'
     | '/baholash'
     | '/davomat'
     | '/profil'
@@ -99,6 +110,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/_tabs'
+    | '/admin'
     | '/_tabs/baholash'
     | '/_tabs/davomat'
     | '/_tabs/profil'
@@ -109,6 +121,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   TabsRoute: typeof TabsRouteWithChildren
+  AdminRoute: typeof AdminRoute
   ApiPublicTelegramWebhookRoute: typeof ApiPublicTelegramWebhookRoute
 }
 
@@ -119,6 +132,13 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof TabsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_tabs/': {
@@ -186,6 +206,7 @@ const TabsRouteWithChildren = TabsRoute._addFileChildren(TabsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   TabsRoute: TabsRouteWithChildren,
+  AdminRoute: AdminRoute,
   ApiPublicTelegramWebhookRoute: ApiPublicTelegramWebhookRoute,
 }
 export const routeTree = rootRouteImport
