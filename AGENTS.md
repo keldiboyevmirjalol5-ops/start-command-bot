@@ -33,3 +33,4 @@ use the editor.
 - Telegram bot logic lives in `src/lib/bot/flow.ts` as a pure function (no I/O) so it stays unit-tested; the webhook route only loads/saves state and sends replies.
 - Telegram receives updates via webhook at `/api/public/telegram/webhook`, authenticated by a secret token derived from `TELEGRAM_API_KEY`; Bot API calls go through the connector gateway.
 - Bot tables (`tg_users`, `tg_processed_updates`) are service-role only; the Mini App must read them through server functions that verify Telegram init data.
+- Admin panel is the single `/admin` route (opened by bot /admin); every admin write goes through the `adminAction` discriminated union in `src/lib/api/admin.functions.ts`, gated by `requireAdmin` (tg_admins row) so there is one audited entry point.
